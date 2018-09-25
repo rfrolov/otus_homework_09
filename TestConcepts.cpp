@@ -32,12 +32,36 @@ struct TestStructWithoutConstructor {
 };
 
 struct CopyConstructibleInvalidConstructor {
-    CopyConstructibleInvalidConstructor(CopyConstructibleInvalidConstructor& ) = delete;
+    CopyConstructibleInvalidConstructor(CopyConstructibleInvalidConstructor &) = delete;
 };
 
 struct CopyConstructibleInvalidOperator {
-    operator &() = delete;
+    operator&() = delete;
 };
+
+template<typename T>
+struct InvalidRandomAccessIterator : std::vector<T>::iterator {
+//    InvalidRandomAccessIterator() = delete;
+
+//    InvalidRandomAccessIterator() = default;
+//    InvalidRandomAccessIterator(InvalidRandomAccessIterator&) = delete;
+
+//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&) = delete;
+
+//    bool operator==(InvalidRandomAccessIterator &) = delete;
+
+//    bool operator!=(InvalidRandomAccessIterator &) = delete;
+
+//    T operator*() = delete;
+
+//    InvalidRandomAccessIterator() = default;
+//    InvalidRandomAccessIterator(InvalidRandomAccessIterator&) = default;
+//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&) = default;
+//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&&) = delete;
+
+//    T operator++() = delete;
+};
+
 
 int main(int argc, char *argv[]) {
     /* Концепт LessThanComparable не нарушен: */
@@ -72,6 +96,7 @@ int main(int argc, char *argv[]) {
     BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<std::vector<size_t>::iterator>));
     /* Концепт RandomAccessIterator нарушен: */
 //    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<std::list<size_t>::iterator>));
+    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<InvalidRandomAccessIterator<int>>));
 
 }
 
