@@ -40,26 +40,77 @@ struct CopyConstructibleInvalidOperator {
 };
 
 template<typename T>
-struct InvalidRandomAccessIterator : std::vector<T>::iterator {
-//    InvalidRandomAccessIterator() = delete;
+struct RandomAccessIteratorInvalidDefaultConstructible : std::vector<T>::iterator {
+    RandomAccessIteratorInvalidDefaultConstructible() = delete;
+};
 
-//    InvalidRandomAccessIterator() = default;
-//    InvalidRandomAccessIterator(InvalidRandomAccessIterator&) = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidCopyConstructible : std::vector<T>::iterator {
+    RandomAccessIteratorInvalidCopyConstructible() = default;
+    RandomAccessIteratorInvalidCopyConstructible(RandomAccessIteratorInvalidCopyConstructible &) = delete;
+};
 
-//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&) = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorAssign : std::vector<T>::iterator {
+    RandomAccessIteratorInvalidOperatorAssign &operator=(RandomAccessIteratorInvalidOperatorAssign &) = delete;
+};
 
-//    bool operator==(InvalidRandomAccessIterator &) = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorEqual : std::vector<T>::iterator {
+    bool operator==(RandomAccessIteratorInvalidOperatorEqual &) = delete;
+};
 
-//    bool operator!=(InvalidRandomAccessIterator &) = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorNotEqual : std::vector<T>::iterator {
+    bool operator!=(RandomAccessIteratorInvalidOperatorNotEqual &) = delete;
+};
 
-//    T operator*() = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorDereference : std::vector<T>::iterator {
+    T operator*() = delete;
+};
 
-//    InvalidRandomAccessIterator() = default;
-//    InvalidRandomAccessIterator(InvalidRandomAccessIterator&) = default;
-//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&) = default;
-//    InvalidRandomAccessIterator& operator =(InvalidRandomAccessIterator&&) = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidSwap : std::vector<T>::iterator {
+    RandomAccessIteratorInvalidSwap() = default;
+    RandomAccessIteratorInvalidSwap(RandomAccessIteratorInvalidSwap &) = default;
+    RandomAccessIteratorInvalidSwap &operator=(RandomAccessIteratorInvalidSwap &) = default;
+    RandomAccessIteratorInvalidSwap &operator=(RandomAccessIteratorInvalidSwap &&) = delete;
+};
 
-//    T operator++() = delete;
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorIncrement : std::vector<T>::iterator {
+    T operator++() = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorDecrement : std::vector<T>::iterator {
+    T operator--() = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorDecrementPlus : std::vector<T>::iterator {
+    T operator+() = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorDecrementMinus : std::vector<T>::iterator {
+    T operator-() = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorAssignPlus : std::vector<T>::iterator {
+    T operator+=(T &) = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorAssignMinus : std::vector<T>::iterator {
+    T operator-=(T &) = delete;
+};
+
+template<typename T>
+struct RandomAccessIteratorInvalidOperatorBraces : std::vector<T>::iterator {
+    T operator[](size_t) = delete;
 };
 
 
@@ -95,8 +146,20 @@ int main(int argc, char *argv[]) {
     /* Концепт RandomAccessIterator не нарушен: */
     BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<std::vector<size_t>::iterator>));
     /* Концепт RandomAccessIterator нарушен: */
-//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<std::list<size_t>::iterator>));
-    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<InvalidRandomAccessIterator<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidDefaultConstructible<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidCopyConstructible<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorAssign<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorEqual<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorNotEqual<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorDereference<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidSwap<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorIncrement<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorDecrement<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorDecrementPlus<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorDecrementMinus<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorAssignPlus<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorAssignMinus<int>>));
+//    BOOST_CONCEPT_ASSERT((customConcept::RandomAccessIterator<RandomAccessIteratorInvalidOperatorBraces<int>>));
 
 }
 

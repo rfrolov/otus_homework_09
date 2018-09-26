@@ -9,5 +9,4 @@ set_target_properties(
         TestConcepts PROPERTIES
         CXX_STANDARD 14
         CXX_STANDARD_REQUIRED ON
-        COMPILE_OPTIONS -Wpedantic -Wall -Wextra
 )
